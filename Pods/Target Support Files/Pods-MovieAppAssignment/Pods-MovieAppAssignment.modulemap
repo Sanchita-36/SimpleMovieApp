@@ -1,0 +1,6 @@
+framework module Pods_MovieAppAssignment {
+  umbrella header "Pods-MovieAppAssignment-umbrella.h"
+
+  export *
+  module * { export * }
+}
