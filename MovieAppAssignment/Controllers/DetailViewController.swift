@@ -20,6 +20,7 @@ class DetailViewController: UIViewController, YTPlayerViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         self.videoKeySelected = UserDefaults.standard.string(forKey: "videoLinkString")!
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         self.showAnimate()

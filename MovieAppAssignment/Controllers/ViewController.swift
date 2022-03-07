@@ -184,8 +184,8 @@ class ViewController: UIViewController, NetworkingProtocol {
 }
 
 extension ViewController: DeletePopularMovieCell, DeleteUnpopularMovieCell {
+    
     func deletePopularMovieCell(index: Int) {
-        
         if searchBool == true {
             searchingData.remove(at: index)
             voteCountArraySearch.remove(at: index)
@@ -209,6 +209,26 @@ extension ViewController: DeletePopularMovieCell, DeleteUnpopularMovieCell {
     
     func deleteUnpopularMovieCell(index: Int) {
         if searchBool == true {
+            var titleFetched = String()
+            
+            for item in searchingData {
+                titleFetched = item.title
+            }
+            
+            for item in 0..<movieTitleArray.count {
+                if movieTitleArray[item] == titleFetched {
+                    //without search
+                    data.remove(at: item)
+                    voteCountArray.remove(at: item)
+                    posterPathArray.remove(at: item)
+                    backdropPathArray.remove(at: item)
+                    movieOverviewArray.remove(at: item)
+                    movieTitleArray.remove(at: item)
+                    releaseDateArray.remove(at: item)
+                    break
+                }
+            }
+            
             searchingData.remove(at: index)
             voteCountArraySearch.remove(at: index)
             posterPathArraySearch.remove(at: index)
@@ -216,16 +236,7 @@ extension ViewController: DeletePopularMovieCell, DeleteUnpopularMovieCell {
             movieOverviewArraySearch.remove(at: index)
             movieTitleArraySearch.remove(at: index)
             releaseDateArraySearch.remove(at: index)
-            
-            //without search
-            data.remove(at: index)
-            voteCountArray.remove(at: index)
-            posterPathArray.remove(at: index)
-            backdropPathArray.remove(at: index)
-            movieOverviewArray.remove(at: index)
-            movieTitleArray.remove(at: index)
-            releaseDateArray.remove(at: index)
-            
+        
             self.movieCollectionView.reloadData()
         }else  {
             data.remove(at: index)
@@ -236,14 +247,14 @@ extension ViewController: DeletePopularMovieCell, DeleteUnpopularMovieCell {
             movieTitleArray.remove(at: index)
             releaseDateArray.remove(at: index)
             
-            //search
-            searchingData.remove(at: index)
-            voteCountArraySearch.remove(at: index)
-            posterPathArraySearch.remove(at: index)
-            backdropPathArraySearch.remove(at: index)
-            movieOverviewArraySearch.remove(at: index)
-            movieTitleArraySearch.remove(at: index)
-            releaseDateArraySearch.remove(at: index)
+//            //search
+//            searchingData.remove(at: index)
+//            voteCountArraySearch.remove(at: index)
+//            posterPathArraySearch.remove(at: index)
+//            backdropPathArraySearch.remove(at: index)
+//            movieOverviewArraySearch.remove(at: index)
+//            movieTitleArraySearch.remove(at: index)
+//            releaseDateArraySearch.remove(at: index)
             
             self.movieCollectionView.reloadData()
         }
@@ -361,6 +372,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             popOverVC.titleLabel.text = movieTitleArray[indexPath.item]
             popOverVC.releaseDateLabel.text = releaseDateArray[indexPath.item]
             popOverVC.descriptionLabel.text = movieOverviewArray[indexPath.item]
+           // popOverVC.videoKeySelected = videoKeyArray[indexPath.item]
         }
     }
 }
@@ -379,8 +391,8 @@ extension ViewController: UISearchBarDelegate, UISearchResultsUpdating {
                     searchingData.append(item)
                 }
             }
-            print(searchingData.count)
-            if searchingData.count > 1 {
+            
+            if searchString.count > 1 {
                 voteCountArraySearch.removeAll()
                 posterPathArraySearch.removeAll()
                 backdropPathArraySearch.removeAll()
